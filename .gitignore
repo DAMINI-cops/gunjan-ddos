@@ -10,7 +10,7 @@ uploads/
 
 # Large files not pushed to GitHub
 data/
-models/
+
 
 # OS junk
 Thumbs.db
