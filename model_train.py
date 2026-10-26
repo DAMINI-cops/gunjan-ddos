@@ -7,6 +7,8 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_auc_score, classification_report
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib

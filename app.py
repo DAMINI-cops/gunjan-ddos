@@ -144,15 +144,19 @@ def model_info():
     except:
         return jsonify({'error': 'Model not loaded'}), 400
 
+# Load model when the module is imported (needed for gunicorn on Render)
+model_loaded = load_model_and_preprocessor()
+
 if __name__ == '__main__':
     print("\n" + "="*60)
     print("DDOS DETECTION SYSTEM - WEB APPLICATION")
     print("="*60)
-    
-    if load_model_and_preprocessor():
+
+    if model_loaded:
+        port = int(os.environ.get("PORT", 5000))
         print("\n✓ System ready!")
-        print("Access at: http://127.0.0.1:5000")
+        print(f"Access at: http://127.0.0.1:{port}")
         print("="*60 + "\n")
-        app.run(debug=True, host='0.0.0.0', port=5000)
+        app.run(debug=False, host='0.0.0.0', port=port)
     else:
         print("\n❌ Failed to load model. Train first: python model_train.py")
