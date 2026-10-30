@@ -147,6 +147,11 @@ def model_info():
 # Load model when the module is imported (needed for gunicorn on Render)
 model_loaded = load_model_and_preprocessor()
 
+if model_loaded:
+    for _part in vars(model).values():
+        if hasattr(_part, "n_jobs"):
+            _part.n_jobs = 1
+            
 if __name__ == '__main__':
     print("\n" + "="*60)
     print("DDOS DETECTION SYSTEM - WEB APPLICATION")
@@ -160,3 +165,4 @@ if __name__ == '__main__':
         app.run(debug=False, host='0.0.0.0', port=port)
     else:
         print("\n❌ Failed to load model. Train first: python model_train.py")
+
